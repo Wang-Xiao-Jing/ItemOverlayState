@@ -15,12 +15,15 @@ import xiaojin.stackingtextureitems.mixinimod.client.IModItemOverride;
 
 import java.util.Map;
 
-import static xiaojin.stackingtextureitems.client.StiItemOverride.*;
+import static xiaojin.stackingtextureitems.client.StiItemOverride.isSti;
+import static xiaojin.stackingtextureitems.client.StiItemOverride.stacking;
 
 @Mixin(ItemOverride.class)
 @Implements(value = @Interface(iface = IModItemOverride.class, prefix = "stiIMod$"))
 public abstract class MixinItemOverride implements IModItemOverride {
-	@Shadow @Final private Map<ResourceLocation, Float> mapResourceValues;
+	@Shadow
+	@Final
+	private Map<ResourceLocation, Float>  mapResourceValues;
 	@Unique
 	private Map<ResourceLocation, String> sti$mapResourceValues;
 	
@@ -56,7 +59,7 @@ public abstract class MixinItemOverride implements IModItemOverride {
 		Item item = stack.getItem();
 		for (Map.Entry<ResourceLocation, Float> entry : mapResourceValues.entrySet()) {
 			IItemPropertyGetter iitempropertygetter = item.getPropertyGetter(entry.getKey());
-			if (sti$mapResourceValues == null && (iitempropertygetter == null || iitempropertygetter.apply(stack, worldIn, livingEntity) < ((Float) entry.getValue()).floatValue())) {
+			if (sti$mapResourceValues == null && (iitempropertygetter == null || iitempropertygetter.apply(stack, worldIn, livingEntity) < entry.getValue().floatValue())) {
 				cir.setReturnValue(false);
 				return;
 			}

@@ -1,28 +1,23 @@
 package xiaojin.stackingtextureitems.client;
 
 import com.google.common.collect.Maps;
-import com.google.gson.*;
-import net.minecraft.client.renderer.block.model.ItemOverride;
-import net.minecraft.entity.EntityLivingBase;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.JsonUtils;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import xiaojin.stackingtextureitems.mixinimod.client.IModItemOverride;
 
-import java.lang.reflect.Type;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
  * 物品堆叠纹理覆盖处理类
- * 
+ *
  * <p>该类用于根据物品堆叠数量来决定使用哪种模型纹理，支持多种比较操作符</p>
- * 
+ *
  * <h2>支持的比较操作符</h2>
  * <ul>
  *   <li>{@code <}  - 小于</li>
@@ -32,7 +27,7 @@ import java.util.regex.Pattern;
  *   <li>{@code =}  - 等于</li>
  *   <li>{@code !=} - 不等于</li>
  * </ul>
- * 
+ *
  * <h2>支持的逻辑操作符</h2>
  * <ul>
  *   <li>{@code &} - 与（AND）操作符，所有条件都必须满足</li>
@@ -77,7 +72,7 @@ public class StiItemOverride {
 	 * 匹配堆叠条件的正则表达式模式
 	 * <p>支持格式如: "=5"、">3"、"<10 & >=5"、"<3 | >10" 等</p>
 	 */
-	public static final Pattern IS_STACKING    = Pattern.compile("^ *(?:[<>]=?|!=|=) *\\d+ *((?:[&|] *(?:[<>]=?|!=|=) *\\d+)* *)*$");
+	public static final Pattern IS_STACKING = Pattern.compile("^ *(?:[<>]=?|!=|=) *\\d+ *((?:[&|] *(?:[<>]=?|!=|=) *\\d+)* *)*$");
 	
 	/**
 	 * 提取数字的正则表达式模式
@@ -87,37 +82,37 @@ public class StiItemOverride {
 	/**
 	 * 小于比较模式
 	 */
-	public static final Pattern LT_PATTERN     = Pattern.compile("^ *< *\\d+ *$");
+	public static final Pattern LT_PATTERN = Pattern.compile("^ *< *\\d+ *$");
 	
 	/**
 	 * 大于比较模式
 	 */
-	public static final Pattern GT_PATTERN     = Pattern.compile("^ *> *\\d+ *$");
+	public static final Pattern GT_PATTERN = Pattern.compile("^ *> *\\d+ *$");
 	
 	/**
 	 * 小于等于比较模式
 	 */
-	public static final Pattern LE_PATTERN     = Pattern.compile("^ *<= *\\d+ *$");
+	public static final Pattern LE_PATTERN = Pattern.compile("^ *<= *\\d+ *$");
 	
 	/**
 	 * 大于等于比较模式
 	 */
-	public static final Pattern GE_PATTERN     = Pattern.compile("^ *>= *\\d+ *$");
+	public static final Pattern GE_PATTERN = Pattern.compile("^ *>= *\\d+ *$");
 	
 	/**
 	 * 不等于比较模式
 	 */
-	public static final Pattern NE_PATTERN     = Pattern.compile("^ *!= *\\d+ *$");
+	public static final Pattern NE_PATTERN = Pattern.compile("^ *!= *\\d+ *$");
 	
 	/**
 	 * 等于比较模式
 	 */
-	public static final Pattern EQ_PATTERN     = Pattern.compile("^ *= *\\d+ *$");
+	public static final Pattern EQ_PATTERN = Pattern.compile("^ *= *\\d+ *$");
 	
 	/**
 	 * STI命名空间前缀匹配模式
 	 */
-	public static final Pattern STI            = Pattern.compile("^sti:");
+	public static final Pattern STI = Pattern.compile("^sti:");
 	
 	/**
 	 * 根据物品堆叠数量判断是否满足条件
@@ -165,7 +160,7 @@ public class StiItemOverride {
 	 * </pre>
 	 *
 	 * @param stack 要判断的物品堆
-	 * @param map 包含条件的键值对条目
+	 * @param map   包含条件的键值对条目
 	 * @return 如果条件不满足返回true，满足返回false
 	 */
 	public static boolean stacking(ItemStack stack, Map.Entry<ResourceLocation, String> map) {
@@ -195,7 +190,7 @@ public class StiItemOverride {
 	/**
 	 * 检查与条件(&)
 	 *
-	 * @param count 物品数量
+	 * @param count        物品数量
 	 * @param conditionStr 条件字符串
 	 * @return 如果条件不满足返回true，满足返回false
 	 */
@@ -248,18 +243,8 @@ public class StiItemOverride {
 	}
 	
 	/**
-	 * 判断给定的键是否为STI命名空间
-	 * 
-	 * @param key 要检查的键
-	 * @return 如果是STI命名空间返回true，否则返回false
-	 */
-	public static boolean isSti(String key) {
-		return STI.matcher(key).matches() || new ResourceLocation(key).getNamespace().equals("sti");
-	}
-	
-	/**
 	 * 从JSON对象中提取STI相关的资源值映射
-	 * 
+	 *
 	 * @param jsonObject 包含predicate属性的JSON对象
 	 * @return STI资源位置到字符串值的映射
 	 */
@@ -275,5 +260,15 @@ public class StiItemOverride {
 		}
 		
 		return map;
+	}
+	
+	/**
+	 * 判断给定的键是否为STI命名空间
+	 *
+	 * @param key 要检查的键
+	 * @return 如果是STI命名空间返回true，否则返回false
+	 */
+	public static boolean isSti(String key) {
+		return STI.matcher(key).matches() || new ResourceLocation(key).getNamespace().equals("sti");
 	}
 }

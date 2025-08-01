@@ -1,6 +1,5 @@
 package xiaojin.stackingtextureitems.mixinimod.client;
 
-import net.minecraft.client.renderer.block.model.ItemOverride;
 import net.minecraft.util.ResourceLocation;
 
 import java.util.Map;

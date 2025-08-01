@@ -23,9 +23,6 @@ import static xiaojin.stackingtextureitems.client.StiItemOverride.isSti;
 
 @Mixin(targets = "net.minecraft.client.renderer.block.model.ItemOverride$Deserializer")
 public abstract class MixinItemOverride_Deserializer implements JsonDeserializer<ItemOverride> {
-	@Shadow
-	protected abstract Map<ResourceLocation, Float> makeMapResourceValues(JsonObject p_188025_1_);
-	
 	// 对不支持的的属性实行跳过
 	@Redirect(method = "makeMapResourceValues", at = @At(value = "INVOKE", target = "Lnet/minecraft/util/JsonUtils;getFloat(Lcom/google/gson/JsonElement;Ljava/lang/String;)F"))
 	private float sti$makeMapResourceValues$redirectGetFloat(JsonElement jsonElement, String key) {
@@ -46,4 +43,7 @@ public abstract class MixinItemOverride_Deserializer implements JsonDeserializer
 		cir.setReturnValue((ItemOverride) itemOverride);
 //		StiItemOverride.deserialize(element, makeMapResourceValues(jsonobject), cir);
 	}
+	
+	@Shadow
+	protected abstract Map<ResourceLocation, Float> makeMapResourceValues(JsonObject p_188025_1_);
 }
