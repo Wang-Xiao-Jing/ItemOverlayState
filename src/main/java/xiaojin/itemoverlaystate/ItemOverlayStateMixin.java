@@ -1,4 +1,4 @@
-package xiaojin.stackingtextureitems;
+package xiaojin.itemoverlaystate;
 
 
 import net.minecraftforge.fml.relauncher.IFMLLoadingPlugin;
@@ -9,14 +9,14 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-public class StiMixin implements IEarlyMixinLoader, IFMLLoadingPlugin {
+public class ItemOverlayStateMixin implements IEarlyMixinLoader, IFMLLoadingPlugin {
 	
 	/**
 	 * @return mixin configurations to be queued and sent to Mixin library.
 	 */
 	@Override
 	public List<String> getMixinConfigs() {
-		return Collections.singletonList("mixins.stackingtextureitems.json");
+		return Collections.singletonList("mixins.itemoverlaystate.json");
 	}
 	
 	/**
