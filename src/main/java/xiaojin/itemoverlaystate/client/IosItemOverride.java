@@ -378,9 +378,16 @@ public class IosItemOverride {
 	 */
 	private static boolean includeNbt(ItemStack stack, JsonElement json) {
 		NBTTagCompound nbt = stack.serializeNBT();
+		NBTTagCompound tag = nbt.getCompoundTag("tag");
 		if (json.isJsonPrimitive() && json.getAsJsonPrimitive().isString()) {
 			String text = json.getAsString();
 			if (!nbt.hasKey(text)) {
+				return false;
+			} else if (nbt.hasKey("tag")) {
+				if (!tag.hasKey(text)) {
+					return false;
+				}
+			} else {
 				return false;
 			}
 		} else if (!json.isJsonArray()) {
@@ -392,6 +399,12 @@ public class IosItemOverride {
 			}
 			String text = textElement.getAsString();
 			if (!nbt.hasKey(text)) {
+				return false;
+			} else if (nbt.hasKey("tag")) {
+				if (!tag.hasKey(text)) {
+					return false;
+				}
+			} else {
 				return false;
 			}
 		}
@@ -407,7 +420,6 @@ public class IosItemOverride {
 		if (!json.isJsonObject()) {
 			return false;
 		}
-		NBTTagList enchantmentNbt = stack.getEnchantmentTagList();
 		JsonObject jsonObject = json.getAsJsonObject();
 		Map<ResourceLocation, Short> enchantments = getEnchantmentMap(stack);
 		for (Map.Entry<String, JsonElement> entry : jsonObject.entrySet()) {
