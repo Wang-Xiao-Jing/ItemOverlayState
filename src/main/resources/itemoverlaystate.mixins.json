@@ -1,0 +1,20 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "xiaojin.itemoverlaystate.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "mixins": [
+  ],
+  "client": [
+    "client.MixinDeserializer",
+    "client.MixinItemOverrides",
+    "client.MixinPredicate",
+    "client.MixinPropertyMatcher"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "overwrites": {
+    "requireAnnotations": true
+  }
+}
