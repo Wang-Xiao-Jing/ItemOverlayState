@@ -1,0 +1,16 @@
+{
+  "package": "xiaojin.itemoverlaystate.mixin",
+  "required": true,
+  "refmap": "mixins.itemoverlaystate.refmap.json",
+  "target": "@env(DEFAULT)",
+  "minVersion": "0.8",
+  "compatibilityLevel": "JAVA_8",
+  "mixins": [
+    "MixinNBTTagLongArray"
+  ],
+  "server": [],
+  "client": [
+    "client.MixinDeserializer",
+    "client.MixinItemOverride"
+  ]
+}
