@@ -9,6 +9,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
 import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.gen.Invoker;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
@@ -35,8 +36,8 @@ public abstract class MixinDeserializer implements JsonDeserializer<ItemOverride
 	 * @param jsonObject 包含谓词信息的 JsonObject
 	 * @return 解析后的 Predicate 列表
 	 */
-	@Invoker()
-	public abstract List<ItemOverride.Predicate> invokeGetPredicates(JsonObject jsonObject);
+	@Shadow
+	protected abstract List<ItemOverride.Predicate> getPredicates(JsonObject jsonObject);
 
 	/**
 	 * 重定向 GsonHelper.convertToFloat 方法调用，在特定条件下返回默认浮点数 0.0f。
@@ -68,7 +69,7 @@ public abstract class MixinDeserializer implements JsonDeserializer<ItemOverride
 			"getPredicates(Lcom/google/gson/JsonObject;)Ljava/util/List;"))
 	private List<ItemOverride.Predicate> sti$deserialize$getPredicates(ItemOverride.Deserializer instance, JsonObject jsonObject) {
 		// 获取原始谓词列表
-		var predicates = invokeGetPredicates(jsonObject);
+		var predicates = getPredicates(jsonObject);
 
 		// 遍历谓词列表，匹配满足条件的项并注入对应的 JsonElement 值
 		Map<ResourceLocation, @NotNull JsonElement> jsonMap;

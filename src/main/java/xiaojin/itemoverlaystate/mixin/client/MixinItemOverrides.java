@@ -31,6 +31,7 @@ import java.util.stream.Stream;
  */
 @Mixin(ItemOverrides.class)
 public abstract class MixinItemOverrides {
+	@Unique
 	private BakedModel ios$model;
 	@Unique
 	@Nullable
@@ -41,8 +42,8 @@ public abstract class MixinItemOverrides {
 	@Unique
 	@Nullable
 	private LivingEntity ios$livingEntity;
+	@Unique
 	private int ios$seed;
-	private CallbackInfoReturnable<BakedModel> cir;
 	@Shadow
 	@Final
 	private ResourceLocation[] properties;
@@ -59,7 +60,7 @@ public abstract class MixinItemOverrides {
 			"Ljava/util/List;Ljava/util/function/Function;)V",
 			at = @At(value = "INVOKE", target = "Ljava/util/stream/Stream;" +
 					"map(Ljava/util/function/Function;)Ljava/util/stream/Stream;", ordinal = 1))
-	private Stream<Object> ios$redirectPropertyMatcherCreation1(Stream<ItemOverride.Predicate> instance, Function<ItemOverride.Predicate, Object> function) {
+	private Stream<Object> ios$redirectPropertyMatcherCreation(Stream<ItemOverride.Predicate> instance, Function<ItemOverride.Predicate, Object> function) {
 		// 构建属性名称到索引的映射表，用于快速查找属性在properties数组中的位置
 		var object2intmap = new Object2IntOpenHashMap<ResourceLocation>();
 		for (int i = 0; i < properties.length; ++i) {

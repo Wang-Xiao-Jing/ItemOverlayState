@@ -23,8 +23,6 @@ public class GetTheHandheldItemInformation {
 			"key.itemoverlaystate.get_the_handheld_item_information",
 			KeyConflictContext.IN_GAME, InputConstants.Type.KEYSYM, KEY_F6,
 			"key.categories.misc"));
-	private static final String NBT_KEY = "itemoverlaystate.nbt";
-	private static final String ITEM_COMPONENTS_KEY = "itemoverlaystate.item_components";
 
 	@SubscribeEvent
 	public static void onKeyInput(InputEvent.Key event) {
