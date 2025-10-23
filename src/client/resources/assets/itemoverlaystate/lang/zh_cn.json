@@ -1,0 +1,11 @@
+{
+  "key.itemoverlaystate.get_the_handheld_item_information": "获取手持物品信息",
+  "itemoverlaystate.item_components": "物品组件",
+  "click_to_open_the_information_screen": "点击打开信息屏幕",
+  "item_information_screen.provider.text.component": "组件sNBT",
+  "item_information_screen.provider.text.data": "数据sNBT",
+  "item_information_screen.provider.text.default": "默认sNBT",
+  "item_information_screen.provider.text.extra": "额外sNBT",
+  "item_information_screen.provider.text.switch": "切换",
+  "item_information_screen.text.copy": "复制sNBT文本"
+}

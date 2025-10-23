@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "id": "itemoverlaystate",
+  "version": "${version}",
+  "name": "Item Overlay State",
+  "description": "Expand original item coverage predicate",
+  "authors": [
+    "XiaoJin"
+  ],
+  "contact": {
+    "modUrl": "https://xiao-jin-mod-wiki.netlify.app/mod/itemoverlaystate/"
+  },
+  "license": "MIT",
+  "icon": "pack.png",
+  "environment": "client",
+  "entrypoints": {
+    "fabric-datagen": [
+    ],
+    "client": [
+      "xiaojin.itemoverlaystate.client.IosMainClient"
+    ],
+    "main": [
+      "xiaojin.itemoverlaystate.IosMain"
+    ]
+  },
+  "mixins": [
+    "itemoverlaystate.mixins.json",
+    {
+      "config": "itemoverlaystate.client.mixins.json",
+      "environment": "client"
+    }
+  ],
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "fabric": "*",
+    "minecraft": "${minecraft_version}"
+  }
+}
